@@ -1,4 +1,5 @@
 var m = require('mithril')
+var redraw = require('mithril/redraw')
 
 exports.createContext = function (context) {
   return {
@@ -6,12 +7,16 @@ exports.createContext = function (context) {
       oncreate: function (vnode) {
         this.root = document.createDocumentFragment()
         this.onupdate(vnode)
+        redraw.subscribe(this.root, m.redraw)
         vnode.dom.parentNode.replaceChild(this.root, vnode.dom)
+      },
+      onremove: function () {
+        redraw.unsubscribe(this.root)
       },
       onupdate: function (vnode) {
         var old = context
         context = vnode.attrs.value
-        m.render(this.root, vnode.children)
+        redraw.render(this.root, vnode.children)
         context = old
       },
       view: function () {

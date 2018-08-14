@@ -2,5 +2,9 @@
   "name": "mithril-context",
   "version": "0.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "mithril": "^1.1.6",
+    "parcel": "^1.9.7"
+  }
 }
